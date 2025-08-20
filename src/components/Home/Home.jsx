@@ -1,91 +1,116 @@
 import React, { useEffect, useState } from 'react';
-import NoteForm from './NoteForm';
+// import NoteForm from './NoteForm';
 import NotesGrid from './NotesGrid';
+import { div } from 'framer-motion/client';
+import Sidebar from './Sidebar';
+import { FiPlus } from 'react-icons/fi';
+import NoteForm from './NoteForm';
+
+// import { div } from 'framer-motion/client';
 
 
-    // This component serves as the main entry point for the Home section of the application.
-    // It can be used to render components like NoteGrid, NoteForm, and Note.
+
+
+// This component serves as the main entry point for the Home section of the application.
+// It can be used to render components like NoteGrid, NoteForm, and Note.
 
 export default function Home() {
 
-    const [notes, setNotes] = useState([]);
+
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const [isSideBarOpen, setIsSideBarOpen] = useState(false);
 
 
 
-    useEffect(() => {
+  const [notes, setNotes] = useState(() => {
+  try {
+    const savedNotes = localStorage.getItem("notes");
+    return savedNotes ? JSON.parse(savedNotes) : [];
+    
+  } catch (error) {
+    console.error("Error loading notes from localStorage:", error);
+    return [];
+  }
+});
 
-        // Load notes from localStorage when the component mounts
-        const savedNotes = JSON.parse(localStorage.getItem("notes")) || [];
-        setNotes(savedNotes);
-    }, []);
-
-    useEffect(() => {
-        // Save notes to localStorage whenever the notes state changes
-        console.log("Saving notes to localStorage:", notes);
-        if (!notes) return;
-        localStorage.setItem("notes", JSON.stringify(notes));
-    }, [notes]);
-
-
-
-    // Add new note
-    const addNote = (note) => {
-        setNotes((prevNotes) => [note, ...prevNotes]); // add new note at top
-    };
-
+useEffect(() => {
+  console.log("Saving notes to localStorage:", notes);
+  localStorage.setItem("notes", JSON.stringify(notes));
+}, [notes]);
 
 
 
 
-    // Delete note by id
-    const deleteNote = (id) => {
-        setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
-    };
+  
+  // Add new note
+  const addNote = (note) => {
+    setNotes((prevNotes) => [note, ...prevNotes]); // add new note at top
+  };
+  
+  
+  
+  
+  
+  // Delete note by id
+  const deleteNote = (id) => {
+    setNotes((prevNotes) => prevNotes.filter((note) => note.id !== id));
+  };
+  
+  
+  const toggleForm = () => {
+    setIsSideBarOpen(false); // Close sidebar when form is opened
+    setIsFormOpen(!isFormOpen);
+  }
 
 
 
- 
+
+  return (
+    <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
 
 
-    return (
-          <div className="min-h-screen flex bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100">
-      {/* Sidebar */}
-      <aside className="w-64 bg-white dark:bg-gray-800 shadow-md hidden md:flex flex-col">
-        <div className="p-6 border-b border-gray-200 dark:border-gray-700">
-          <h2 className="text-2xl font-bold text-indigo-500">📝 Sticky Notes</h2>
-        </div>
-        <nav className="flex-1 p-4 space-y-2">
-          <button className="w-full text-left px-4 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700">
-            All Notes
-          </button>
-          <button className="w-full text-left px-4 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700">
-            Pinned
-          </button>
-          <button className="w-full text-left px-4 py-2 rounded-md hover:bg-indigo-100 dark:hover:bg-gray-700">
-            Trash
-          </button>
-        </nav>
-      </aside>
+      <Sidebar isOpen={isSideBarOpen} setIsOpen={setIsSideBarOpen} />
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col">
         {/* Top Bar */}
         <header className="flex justify-between items-center p-4 bg-white dark:bg-gray-800 shadow-md">
           <h1 className="text-xl font-bold">My Sticky Notes</h1>
-          <button
-            onClick={() => document.documentElement.classList.toggle("dark")}
+          <button onClick={toggleForm}
             className="px-3 py-1 rounded-md bg-indigo-500 text-white hover:bg-indigo-600 transition"
           >
-            Toggle Dark Mode
+            Add Note <FiPlus className=' inline text-2xl ml-2' />
           </button>
         </header>
 
         {/* Notes Area */}
         <main className="flex-1 p-6 overflow-y-auto">
-          <NoteForm addNote={addNote} />
           <NotesGrid notes={notes} deleteNote={deleteNote} />
         </main>
       </div>
+
+      {/* Floating Action Button */}
+      <div
+        onClick={toggleForm}
+        className="fixed bottom-4 right-4">
+        <button
+          className="bg-indigo-500 text-white p-3 rounded-full shadow-lg hover:bg-indigo-600 transition"
+        >
+          <FiPlus className="text-2xl" />
+        </button>
+      </div>
+      {isFormOpen &&
+        <div onClick={toggleForm} className='fixed bottom-0 right-0 left-0 top-0 bg-gray-900 bg-opacity-50 flex items-center justify-center z-50 '>
+          <NoteForm
+            addNote={addNote}
+            toggleForm={toggleForm}
+          />
+        </div>
+      }
+
+
     </div>
-    )
+
+
+  )
 }

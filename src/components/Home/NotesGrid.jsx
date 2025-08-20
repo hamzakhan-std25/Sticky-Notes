@@ -6,9 +6,9 @@ import Note from "./Note";
 export default function NotesGrid({ notes, deleteNote }) {
   const breakpointColumnsObj = {
     default: 4,
-    1100: 3,
+    1400: 3,
     700: 2,
-    500: 1,
+    400: 1,
   };
 
   return (

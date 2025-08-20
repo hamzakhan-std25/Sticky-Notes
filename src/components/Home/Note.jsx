@@ -14,20 +14,20 @@ export default function Note({ id, title, content, color, date, deleteNote, pinn
     >
       {/* Pin Badge */}
       {pinned && (
-        <span className="absolute top-2 right-2 bg-indigo-500 text-white text-xs px-2 py-1 rounded-md">
-          📌 Pinned
+        <span className=" absolute top-2 right-2 bg-indigo-500 text-white text-xs px-2 py-1 rounded-md">
+          📌
         </span>
       )}
 
       {/* Title */}
       {title && (
-        <h2 className="text-lg font-semibold text-gray-800 dark:text-gray-100 mb-2">
+        <h2 className="text-xl font-semibold  text-black mb-4 border-b border-b-gray-300 ">
           {title}
         </h2>
       )}
 
       {/* Content */}
-      <p className="text-sm text-gray-700 dark:text-gray-200 mb-4 whitespace-pre-wrap">
+      <p className="text-sm text-black  mb-4 whitespace-pre-wrap">
         {content}
       </p>
 
