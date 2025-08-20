@@ -1,9 +1,11 @@
 {
-  "homepage": "https://hamzakhan-std25.github.io/Sticky-Notes",
   "name": "react-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://hamzakhan-std25.github.io/Sticky-Notes",
+  "description": "A simple sticky note app built with React and Tailwind CSS",
+  "author": "Your Name",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
