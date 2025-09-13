@@ -7,15 +7,15 @@
   "description": "A simple sticky note app built with React and Tailwind CSS",
   "author": "Your Name",
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "lint": "eslint .",
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",

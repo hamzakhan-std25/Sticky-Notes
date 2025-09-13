@@ -9,12 +9,13 @@ export default function Note({ id, title, content, color, date, deleteNote, pinn
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.8 }}
       transition={{ duration: 0.3 }}
-      className={`rounded-xl shadow-md p-4 mb-4 break-words relative`}
+      className={`rounded-xl shadow-md p-4 mb-4 break-words relative `}
       style={{ backgroundColor: color || "#fef3c7" }}
     >
       {/* Pin Badge */}
       {pinned && (
-        <span className=" absolute top-2 right-2 bg-indigo-500 text-white text-xs px-2 py-1 rounded-md">
+        <span
+         className=" cursor-pointer absolute top-2 right-2 bg-indigo-500 text-white text-xs px-2 py-1 rounded-md">
           📌
         </span>
       )}

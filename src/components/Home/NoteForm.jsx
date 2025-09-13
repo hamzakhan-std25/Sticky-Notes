@@ -112,7 +112,7 @@ export default function NoteForm({ addNote, toggleForm }) {
             placeholder="Title..."
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            className="border w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+            className="border border-gray-500 w-full p-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
           />
           <div
             onClick={togglePined}
@@ -128,7 +128,7 @@ export default function NoteForm({ addNote, toggleForm }) {
           value={content}
           required
           onChange={(e) => setContent(e.target.value)}
-          className="border p-2 rounded-lg min-h-54 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
+          className="border border-gray-500 p-2 rounded-lg min-h-54 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400"
         ></textarea>
 
         {/* Color Picker + Mic */}
